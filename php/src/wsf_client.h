@@ -26,7 +26,6 @@
 #include "wsf_common.h"
 #include <axiom_soap_body.h>
 #include <TSRM.h>
-#include "ext/libxml/php_libxml.h"
 
 #ifdef __cplusplus
 extern "C"

@@ -1986,10 +1986,12 @@ wsf_util_get_real_path(
 
 	if (VCWD_REALPATH(path, resolved_path_buff)) 
 	{
+#if PHP_VERSION_ID < 50399
 		if (PG(safe_mode) && (!php_checkuid(resolved_path_buff, NULL, CHECKUID_CHECK_FILE_AND_DIR))) 
 		{
 			return NULL;
 		}
+#endif
 
 		if (php_check_open_basedir(resolved_path_buff TSRMLS_CC)) 
 		{

@@ -238,6 +238,15 @@ function wsf_extract_wsdl_info($wsdata) {
 	$passphrase = NULL;
 	$stream_ctx = NULL;
 
+	if(array_key_exists(WSF_WSDL_CA_CERT, $user_parameters)){
+		        $cacert = $user_parameters[WSF_WSDL_CA_CERT];
+	}
+	if(array_key_exists(WSF_WSDL_CLIENT_CERT, $user_parameters)){
+		        $clientcert = $user_parameters[WSF_WSDL_CLIENT_CERT];
+	}
+	if(array_key_exists(WSF_WSDL_PASSPHRASE, $user_parameters)){
+		        $passphrase = $user_parameters[WSF_WSDL_PASSPHRASE];
+	}
 	/** wsf_get_wsdl_function using an stream context object */
 	
 	if(!is_null($cacert) && !is_null($clientcert)){

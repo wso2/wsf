@@ -562,6 +562,13 @@ wsf_set_rampart_options (
 		rampart_context_set_ttl(rampart_context, env, Z_LVAL_PP(token_val));
     }
 
+	if (zend_hash_find (ht_token, WSF_CLOCK_SKEW_BUFFER, sizeof (WSF_CLOCK_SKEW_BUFFER),
+            (void **) &token_val) == SUCCESS
+        && Z_TYPE_PP (token_val) == IS_LONG) 
+	{
+		rampart_context_set_clock_skew_buffer(rampart_context, env, Z_LVAL_PP(token_val));
+    }
+
     if (zend_hash_find (ht_token, WSF_USER, sizeof (WSF_USER),
             (void **) &token_val) == SUCCESS
         && Z_TYPE_PP (token_val) == IS_STRING) 

@@ -104,9 +104,9 @@ function wsf_parse_payload_for_array(DomNode $payload, DomNode $sig_node,
         //  handle simple content extension seperatly
         if($the_only_node->attributes->getNamedItem(WSF_CONTENT_MODEL) &&
                 $the_only_node->attributes->getNamedItem(WSF_CONTENT_MODEL)->value == WSF_SIMPLE_CONTENT) {
-            $parse_tree = wsf_infer_content_model($payload, $the_only_child, NULL,
+            $parse_tree = wsf_infer_content_model($payload, $the_only_node, NULL,
                             $cid2cont_type, $cid2attachments);
-            $attr_parse_tree = wsf_infer_attributes($payload, $the_only_child);
+            $attr_parse_tree = wsf_infer_attributes($payload, $the_only_node);
             $parse_tree = array_merge($parse_tree, $attr_parse_tree);
         }
         else { 
@@ -522,6 +522,9 @@ function wsf_deserialize_simple_types(&$current_child, DomNode $sig_param_node, 
         $tmp_array = array();
         while($current_child !== NULL && $current_child->localName == $param_name) {
 
+			if ($content_model == WSF_SIMPLE_CONTENT) {
+				$param_type = $sig_param_attris->getNamedItem(WSF_EXTENSION)->value;
+			}
             //modify the mtom node to keep only the cid
             if($param_type == WSF_XSD_BASE64) {
                 $include_node = $current_child->firstChild;
@@ -567,6 +570,9 @@ function wsf_deserialize_simple_types(&$current_child, DomNode $sig_param_node, 
     }
     else {
 
+		if ($content_model == WSF_SIMPLE_CONTENT) {
+			$param_type = $sig_param_attris->getNamedItem(WSF_EXTENSION)->value;
+		}
         //modify the mtom node to keep only the cid
         if($param_type == WSF_XSD_BASE64) {
             $include_node = $current_child->firstChild;
@@ -744,7 +750,7 @@ function wsf_deserialize_complex_types(&$current_child, DomNode $sig_param_node,
  *
  * @param $classmap the user passed classmap
  */
-function wsf_infer_content_model(DomNode &$current_child, DomNode $sig_node, $classmap,
+function wsf_infer_content_model(DomNode &$current_child, DomNode $sig_node=NULL, $classmap,
                     $cid2cont_type, $cid2attachments) {
 
     ws_log_write(__FILE__, __LINE__, WSF_LOG_DEBUG, "parsing content model");

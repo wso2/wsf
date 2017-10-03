@@ -63,6 +63,7 @@ typedef enum ws_input_types
 #define WSF_WSMESSAGE "WSMESSAGE"
 
 #define WSF_MESSAGE_STR "str"
+#define WSF_MESSAGE_REQUEST_SOAP_ENVELOPE_STR "soapEnvelopeStr"
 
 #define WSF_ACTIONS      "actions"
 #define WSF_OPERATIONS   "operations"

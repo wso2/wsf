@@ -867,10 +867,11 @@ wsf_xml_msg_recv_invoke_wsmsg(
         axis2_char_t *content_type TSRMLS_DC)
 {
 
-    char *req_payload = NULL, *res_payload = NULL;
+    char *req_payload = NULL, *res_payload = NULL, *req_envelope;
     axiom_node_t *res_om_node = NULL;
     axiom_node_t *om_node = NULL;
     axiom_soap_envelope_t *soap_envelope = NULL;
+	axiom_node_t *envelope_node = NULL;
     axiom_soap_body_t *soap_body = NULL;
     axiom_node_t *soap_body_node = NULL;
 
@@ -896,6 +897,7 @@ wsf_xml_msg_recv_invoke_wsmsg(
         AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, WSF_PHP_LOG_PREFIX "soap envelope not found");
         return NULL;
     }
+	envelope_node = axiom_soap_envelope_get_base_node(soap_envelope, env);
 
     soap_body = axiom_soap_envelope_get_body(soap_envelope, env);
     if (!soap_body)
@@ -961,8 +963,10 @@ wsf_xml_msg_recv_invoke_wsmsg(
 
         /** this should be after mtom processing */
         req_payload = wsf_util_serialize_om(env, om_node);
-
         add_property_stringl(msg, WSF_MESSAGE_STR, req_payload, req_payload ? strlen(req_payload) : 0, 1);
+		req_envelope = wsf_util_serialize_om(env, envelope_node);
+		add_property_stringl(msg, WSF_MESSAGE_REQUEST_SOAP_ENVELOPE_STR, req_envelope, req_envelope ? strlen(req_envelope) : 0, 1);
+       
         if (content_type)
         {
             add_property_string(msg, WSF_REST_CONTENT_TYPE, content_type, 1);

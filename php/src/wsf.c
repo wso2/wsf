@@ -458,8 +458,12 @@ php_ws_object_new_ex(
 
     ALLOC_HASHTABLE(intern->std.properties);
     zend_hash_init(intern->std.properties, 0, NULL, ZVAL_PTR_DTOR, 0);
+#if PHP_VERSION_ID < 50399
     zend_hash_copy(intern->std.properties, &class_type->default_properties,
             (copy_ctor_func_t) zval_add_ref, (void *) & tmp, sizeof (void *));
+#else
+        object_properties_init(&(intern->std), class_type); 
+#endif
 
     retval.handle = zend_objects_store_put(intern,
             (zend_objects_store_dtor_t) zend_objects_destroy_object,
@@ -1907,6 +1911,10 @@ PHP_METHOD(ws_security_token, __construct) {
         if (zend_hash_find(ht, WSF_TTL, sizeof (WSF_TTL),
                 (void **) & tmp) == SUCCESS && Z_TYPE_PP(tmp) == IS_LONG) {
             add_property_long(object, WSF_TTL, Z_LVAL_PP(tmp));
+        }
+		 if (zend_hash_find(ht, WSF_CLOCK_SKEW_BUFFER, sizeof (WSF_CLOCK_SKEW_BUFFER),
+                (void **) & tmp) == SUCCESS && Z_TYPE_PP(tmp) == IS_LONG) {
+					add_property_long(object, WSF_CLOCK_SKEW_BUFFER, Z_LVAL_PP(tmp));
         }
 
         if (zend_hash_find(ht, WSF_PKCS12_KEYSTORE, sizeof (WSF_PKCS12_KEYSTORE),

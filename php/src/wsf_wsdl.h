@@ -26,7 +26,6 @@
 #include "wsf_policy.h"
 #include <axiom_soap_body.h>
 #include <TSRM.h>
-#include "ext/libxml/php_libxml.h"
 
 
 /**

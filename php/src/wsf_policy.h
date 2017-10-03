@@ -25,7 +25,6 @@
 #include "wsf_common.h"
 #include <axiom_soap_body.h>
 #include <TSRM.h>
-#include "ext/libxml/php_libxml.h"
 #include <rampart_context.h>
 
 /** Identifier for a policy object */
@@ -78,6 +77,7 @@
 #define WSF_PASSWORD "password"
 #define WSF_PRIVATE_KEY "privateKey"
 #define WSF_TTL "ttl"
+#define WSF_CLOCK_SKEW_BUFFER "clockSkewBuffer"
 #define WSF_RECEIVER_CERTIFICATE "receiverCertificate"
 #define WSF_RAMPART_CONFIGURATION "RampartConfiguration"
 #define WSF_DIGEST "Digest"
