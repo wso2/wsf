@@ -783,7 +783,10 @@ else
 	if (address)
 	    endpoint_ref = axis2_endpoint_ref_create(env, address);
 	else
+    {
+	AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, "[wsclient] address failure");
 	    return WSCLIENT_FAILURE;
+    }
 
 	svc_client = axis2_svc_client_create (env, client_home);
 	AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, 
@@ -804,7 +807,10 @@ else
 	if (endpoint_ref)
 	    axis2_options_set_to(options, env, endpoint_ref);
 	else
+    {
+        AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, "[wsclient] endpoint_ref failure");
 	    return WSCLIENT_FAILURE;
+    }
 
 	if (is_soap_enabled)
 	{
@@ -987,7 +993,10 @@ else
 	if (svc_client && options)
 	    axis2_svc_client_set_options(svc_client, env, options);
 	else
+    {
+        AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, "[wsclient] svc_client && options failure");
 	    return WSCLIENT_FAILURE;
+    }
 
 
 	if (payload && svc_client)
@@ -1035,7 +1044,15 @@ else
 		}
 	}
 	else
+    {
+        if (payload == NULL) {
+            AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, "[wsclient] payload is null");
+        }
+        if (svc_client == NULL) {
+            AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, "[wsclient] svc_client is null");
+        }
 	    return WSCLIENT_FAILURE;
+    }
 
 	if (ret_node)
 	{
@@ -1053,6 +1070,7 @@ else
 			if(0 != axutil_strcasecmp(node_name, "fault"))
 			{
 				AXIS2_FREE (env->allocator, node_name);
+                AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, "[wsclient] fault");
 				return WSCLIENT_ERROR_RECEIVING_RESPONSE;
 			}
 			AXIS2_FREE (env->allocator, node_name);
@@ -1089,7 +1107,7 @@ else
 	else 
 	{
 		AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, 
-						"[wsclient] invoke response retrival failed");
+						"[wsclient] invoke response retrieval failed");
 		return WSCLIENT_FAILURE;
 	}
 	if (password_buffer)

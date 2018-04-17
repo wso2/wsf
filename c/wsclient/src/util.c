@@ -48,9 +48,12 @@ wsclient_payload (
     input = input_buffer;
 
     if (input)
+    {
 		reader = axiom_xml_reader_create_for_memory (env, input, strlen (input), NULL, AXIS2_XML_PARSER_TYPE_BUFFER);
-    else
+    } else {
+        AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, "[wsclient] input was null");
 		return WSCLIENT_FAILURE;
+    }
 
     if (reader)
     {
@@ -58,7 +61,10 @@ wsclient_payload (
 		builder = axiom_stax_builder_create (env, reader);
     }
     else 
+    {
+        AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, "[wsclient] reader was null");
 		return WSCLIENT_FAILURE;
+    }
 
     if (builder)
     {
@@ -66,12 +72,20 @@ wsclient_payload (
 		if (doc)
 			axiom_document_build_all (doc, env);
 		else
+        {
+		    AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, "[wsclient] doc was null");
 			return WSCLIENT_FAILURE;
+        }
 		node = axiom_document_get_root_element (doc, env);
+        if (node == NULL)
+        {
+		    AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, "[wsclient] node was null");
+        }
     }
     else
     {
 		axiom_xml_reader_free (reader, env);
+        AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, "[wsclient] builder was null");
 		return WSCLIENT_FAILURE;
     }
     return node;

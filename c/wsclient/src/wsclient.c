@@ -114,15 +114,15 @@ int main (int argc, char **argv)
 			case WSCLIENT_FAILURE:
 			{
 				AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, 
-								"[wsclient] wsclient invoke failed!");
-				printf ("\nwsclient invoke failed ! \n");
+								"[wsclient] wsclient invoke failed, generic!");
+				printf ("\nwsclient invoke failed, generic! \n");
 			}
 			break;
 			case WSCLIENT_ERROR_NO_DESTURI:
 			{
 				AXIS2_LOG_DEBUG(env->log, AXIS2_LOG_SI, 
-								"[wsclient] wsclient invoke failed !");
-				printf ("\nwsclient invoke failed ! \n");
+								"[wsclient] wsclient invoke failed, no dest_uri !");
+				printf ("\nwsclient invoke failed, no dest_uri! \n");
 			}
 			break;
 			case WSCLIENT_SUCCESS:
@@ -331,8 +331,6 @@ Rampart:\n"),
        --encrypt-signature          Encrypts the signature (when signing before encryption).\n"),
 			("\
        --encrypt-before-signing     Encrypts before signing(by default wsclient will sign before encrypting.\n"),
-			("\
-       --sign-body                  Signs the soap body.\n"),
 			("\
        --timestamp                  Generates a timestamp element in the security header.\n"),
 			("\
