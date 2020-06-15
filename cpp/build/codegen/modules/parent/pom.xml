@@ -124,7 +124,7 @@
         <plexus.utils.version>1.4.9</plexus.utils.version>
         <rhino.version>1.6R7</rhino.version>
         <servlet.api.version>2.3</servlet.api.version>
-        <spring.version>2.5.1</spring.version>
+        <spring.version>5.2.7.RELEASE</spring.version>
         <stax.api.version>1.0.1</stax.api.version>
         <stax.impl.artifact>wstx-asl</stax.impl.artifact>
         <stax.impl.groupid>org.codehaus.woodstox</stax.impl.groupid>
