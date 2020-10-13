@@ -271,7 +271,7 @@
         <commons.logging.version>1.1</commons.logging.version>
         <javamail.version>1.4</javamail.version>
         <activation.version>1.1</activation.version>
-        <junit.version>3.8.2</junit.version>
+        <junit.version>4.13.1</junit.version>
 		<axis2.version>1.401</axis2.version>
 		<js.core.version>1.6R7</js.core.version>
 		<neethi.version>2.0.4</neethi.version>
