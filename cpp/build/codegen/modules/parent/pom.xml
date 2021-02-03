@@ -82,7 +82,7 @@
         -->
         <version>1.0</version>
         <axis2.version>1.5</axis2.version>
-        <ant.version>1.7.0</ant.version>
+        <ant.version>1.10.9</ant.version>
         <antlr.version>2.7.7</antlr.version>
         <axiom.version>1.2.8</axiom.version>
         <bcel.version>5.2</bcel.version>
